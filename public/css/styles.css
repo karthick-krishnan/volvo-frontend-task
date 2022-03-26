@@ -9,3 +9,23 @@ body {
   border: none;
   background: none;
 }
+
+.thumb-container {
+  background: rgb(235, 235, 235);
+  border-radius: 100%;
+  margin: 0 4px;
+  display: block;
+}
+
+.tumb-icon {
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+  transition: background 300ms ease 0s;
+  opacity: 0;
+}
+
+.thumb-active {
+  background: rgb(20, 20, 20);
+  opacity: 1;
+}
