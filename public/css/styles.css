@@ -1,0 +1,11 @@
+body {
+  background: white;
+  color: white;
+}
+
+
+.prev-next-button{
+  padding: 0;
+  border: none;
+  background: none;
+}
