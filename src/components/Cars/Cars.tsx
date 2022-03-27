@@ -3,6 +3,7 @@ import {
   Block,
   Flex,
   Icon,
+  Spinner,
 } from "vcc-ui";
 import { useSpringCarousel } from "react-spring-carousel";
 import carsList from "../../data/carsList";
@@ -10,7 +11,7 @@ import CarouselItem from "./CarouselItem";
 import CarouselThumb from "./CarouselThumb";
 
 export const Cars: React.FC = () => {
-  const [cars, setCars] = useState<any[]>([]);
+  const [cars, setCars] = useState<any[]>([{id: null}]);
   const [activeSlideId, setActiveSlideId] = useState<string>(carsList[0].id);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,13 +38,13 @@ export const Cars: React.FC = () => {
     thumbsFragment,
     useListenToCustomEvent,
   } = useSpringCarousel({
-    itemsPerSlide: 4,
+    itemsPerSlide: cars.length >= 4 ? 4 : 1,
     shouldResizeOnWindowResize: true,
     withLoop: true,
     withThumbs: true,
     items: cars.map((car: any) => ({
       id: car.id,
-      renderItem: <CarouselItem car={car} />,
+      renderItem: isLoading ? <Spinner size={48} /> : <CarouselItem car={car} />,
       renderThumb: (
         <CarouselThumb
           id={car.id}
@@ -83,7 +84,7 @@ export const Cars: React.FC = () => {
 
   return (
     <Block>
-       {isLoading ? <h1> Is loading!!!!</h1> : renderCars()}
+       {renderCars()}
     </Block>
   );
 };
