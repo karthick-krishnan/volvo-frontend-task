@@ -6,7 +6,7 @@ interface CarouselItemProps {
 
 const CarouselItem: React.FC<CarouselItemProps> = ({car}) => {
   return (
-    <Block>
+    <Block extend={{ margin: '0 22px'}}>
       <View>
         <Text subStyle="inline-link">{car.bodyType}</Text>
         <Spacer />

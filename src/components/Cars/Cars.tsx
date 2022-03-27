@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Block,
-  Flex,
-  Icon,
-  Spinner,
-} from "vcc-ui";
+import { Block, Flex, Icon, Spinner } from "vcc-ui";
 import { useSpringCarousel } from "react-spring-carousel";
 import carsList from "../../data/carsList";
 import CarouselItem from "./CarouselItem";
 import CarouselThumb from "./CarouselThumb";
 
 export const Cars: React.FC = () => {
-  const [cars, setCars] = useState<any[]>([{id: null}]);
+  const [cars, setCars] = useState<any[]>([{ id: null }]);
   const [activeSlideId, setActiveSlideId] = useState<string>(carsList[0].id);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +23,6 @@ export const Cars: React.FC = () => {
     })();
   }, []);
 
-
   const {
     carouselFragment,
     slideToPrevItem,
@@ -44,7 +38,11 @@ export const Cars: React.FC = () => {
     withThumbs: true,
     items: cars.map((car: any) => ({
       id: car.id,
-      renderItem: isLoading ? <Spinner size={48} /> : <CarouselItem car={car} />,
+      renderItem: isLoading ? (
+        <Spinner size={48} />
+      ) : (
+        <CarouselItem car={car} />
+      ),
       renderThumb: (
         <CarouselThumb
           id={car.id}
@@ -61,30 +59,26 @@ export const Cars: React.FC = () => {
     }
   });
 
-  const renderCars = () =>{
+  const renderCars = () => {
     return (
-      <Block>
-      <Block>{carouselFragment}</Block>
-       <Flex
-         extend={{ flexDirection: "row", right: "25px", position: "absolute" }}
-       >
-         <div className="carousel-buttons">
-           <button className="prev-next-button" onClick={slideToPrevItem}>
-             <Icon type="media-previous-32"></Icon>
-           </button>
-           <button className="prev-next-button" onClick={slideToNextItem}>
-             <Icon type="media-next-32"></Icon>
-           </button>
-         </div>
-         <div className="thumbs-container">{thumbsFragment}</div>
-       </Flex>
-     </Block>
-    )
-  }
+      <>
+        <Block>
+          <>
+            {carouselFragment}
+            <div className="carousel-buttons">
+              <button className="prev-next-button" onClick={slideToPrevItem}>
+                <Icon type="media-previous-32"></Icon>
+              </button>
+              <button className="prev-next-button" onClick={slideToNextItem}>
+                <Icon type="media-next-32"></Icon>
+              </button>
+            </div>
+          </>
+        </Block>
+        <Flex className="thumbs-icon-container">{thumbsFragment}</Flex>
+      </>
+    );
+  };
 
-  return (
-    <Block>
-       {renderCars()}
-    </Block>
-  );
+  return <Block>{renderCars()}</Block>;
 };
