@@ -8,7 +8,9 @@ function HomePage() {
   return (
     <StyleProvider>
       <ThemePicker variant="light">
-        <Cars />
+        <div className="cars-corousel-container">
+          <Cars />
+        </div>
       </ThemePicker>
     </StyleProvider>
   );

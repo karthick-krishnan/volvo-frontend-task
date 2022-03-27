@@ -29,3 +29,22 @@ body {
   background: rgb(20, 20, 20);
   opacity: 1;
 }
+
+@media only screen and (max-width: 600px) {
+  .carousel-buttons {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .thumbs-container {
+    display: none;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .thumbs-container {
+    display: none;
+  }
+}

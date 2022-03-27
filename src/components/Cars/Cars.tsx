@@ -19,7 +19,7 @@ import CarouselItem from "./CarouselItem";
 import CarouselThumb from "./CarouselThumb";
 
 export const Cars: React.FC = () => {
-  // const [cars, setCars] = useState<any[]>([]);
+  const [activeSlideId, setActiveSlideId] = useState<string>(carsList[0].id);
 
   // useEffect(() => {
   //   (async function () {
@@ -38,10 +38,12 @@ export const Cars: React.FC = () => {
     slideToItem,
     getCurrentActiveItem,
     thumbsFragment,
+    useListenToCustomEvent,
   } = useSpringCarousel({
     itemsPerSlide: 4,
+    shouldResizeOnWindowResize: true,
     withLoop: true,
-    withThumbs: true, 
+    withThumbs: true,
     items: carsList.map((car: any) => ({
       id: car.id,
       renderItem: <CarouselItem car={car} />,
@@ -49,10 +51,16 @@ export const Cars: React.FC = () => {
         <CarouselThumb
           id={car.id}
           slideToItem={() => slideToItem(car.id)}
-          getCurrentActiveItem={() => getCurrentActiveItem}
+          activeSlideId={activeSlideId}
         />
       ),
     })),
+  });
+
+  useListenToCustomEvent((event) => {
+    if (event.eventName === "onSlideChange") {
+      setActiveSlideId(getCurrentActiveItem().id);
+    }
   });
 
   return (
@@ -61,13 +69,15 @@ export const Cars: React.FC = () => {
       <Flex
         extend={{ flexDirection: "row", right: "25px", position: "absolute" }}
       >
-        <button className="prev-next-button" onClick={slideToPrevItem}>
-          <Icon type="media-previous-32"></Icon>
-        </button>
-        <button className="prev-next-button" onClick={slideToNextItem}>
-          <Icon type="media-next-32"></Icon>
-        </button>
-        <div>{thumbsFragment}</div>
+        <div className="carousel-buttons">
+          <button className="prev-next-button" onClick={slideToPrevItem}>
+            <Icon type="media-previous-32"></Icon>
+          </button>
+          <button className="prev-next-button" onClick={slideToNextItem}>
+            <Icon type="media-next-32"></Icon>
+          </button>
+        </div>
+        <div className="thumbs-container">{thumbsFragment}</div>
       </Flex>
     </Block>
   );

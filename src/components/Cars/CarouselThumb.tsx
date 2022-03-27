@@ -1,20 +1,23 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler } from "react";
 
 interface CarouselThumbProps {
-  getCurrentActiveItem: Function;
-  slideToItem: Function;
+  activeSlideId: string;
+  slideToItem: MouseEventHandler;
   id: string;
 }
 
-const CarouselThumb: React.FC<CarouselThumbProps> = ({ getCurrentActiveItem, slideToItem, id }) => {
-  const [isActive, setIsActive] = useState<boolean>(getCurrentActiveItem()().id === id);
-
-  const onClick = () => {
-    slideToItem();
-    setIsActive(getCurrentActiveItem()().id === id)
-  }
+const CarouselThumb: React.FC<CarouselThumbProps> = ({
+  activeSlideId,
+  slideToItem,
+  id,
+}) => {
   return (
-    <div className={`thumb-container ${isActive ? "thumb-active" : ""}`} onClick={onClick}>
+    <div
+      className={`thumb-container ${
+        activeSlideId === id ? "thumb-active" : ""
+      }`}
+      onClick={slideToItem}
+    >
       <div className="tumb-icon"></div>
     </div>
   );
